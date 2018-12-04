@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('courses', 'CourseController');
+Route::resource('users', 'UserController');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('/');
+Route::get('/home', 'HomeController@index');
+
+Route::get('categories/{id}', 'CategoryController@show');
