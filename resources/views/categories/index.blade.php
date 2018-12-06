@@ -2,7 +2,7 @@
 @section('navheader')
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Todos los cursos</a>
+            <a class="navbar-brand" href="#">Cursos de {{$cat->name}}</a>
         </div>
     </div>
 @stop
@@ -11,7 +11,7 @@
     <link href="{{ asset("css/cards.css")}}" rel="stylesheet" />
     <div class="box">
         <div class="container">
-            @foreach($courses->chunk(3) as $items)
+            @foreach($cat_courses->chunk(3) as $items)
                 <div class="row">
                     @foreach($items as $item)
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">

@@ -14,28 +14,7 @@
 @stop
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body .box{
-            background: #eee;
-        }
-        span{
-            font-size:15px;
-        }
-
-        .box{
-            padding:60px 0px;
-        }
-
-        .box-part{
-            background:#FFF;
-            border-radius:0;
-            padding:60px 10px;
-            margin:30px 0px;
-        }
-        .fa{
-            color:#4183D7;
-        }
-    </style>
+    <link href="{{ asset("css/cards.css")}}" rel="stylesheet" />
     <div class="box">
         <div class="container">
             <h2 class="text-center">Categorías</h2>

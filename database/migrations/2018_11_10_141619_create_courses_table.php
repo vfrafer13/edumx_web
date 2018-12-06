@@ -18,9 +18,9 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->decimal('price', 11, 2);
-            $table->string('category');
-            $table->string('instructor');
-            $table->string('duration');
+            $table->integer('category');
+            $table->integer('instructor');
+            $table->integer('duration');
             $table->string('requirements');
             $table->decimal('rating', 2, 1);
             $table->string('topics');

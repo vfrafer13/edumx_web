@@ -2,65 +2,66 @@
 @section('navheader')
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Nueva Cita</a>
+            <a class="navbar-brand" href="#">Nuevo Curso</a>
         </div>
     </div>
 @stop
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="card">
         <div class="content">
             {{ Form::open(array('url' => 'courses')) }}
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <div class="form-group">
-                        {{ Form::hidden('query_type', 'null')}}
-                        {{ Form::label('dog_id', 'Perro') }}
-                        {{ Form::select('dog_id', $dogs, Input::old('dog_id'), ['class' => 'form-control border-input', 'required'=>'required']) }}
+                        {{ Form::label('name', 'Nombre') }}
+                        {{ Form::text('name', Input::old('name'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ Form::label('description', 'Descripción') }}
+                        {{ Form::text('description', Input::old('description'), array('class' => 'form-control border-input', 'required'=>'required')) }}
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ Form::label('date', 'Fecha') }}
-                        {{ Form::date('date', Input::old('date'), array('class' => 'form-control border-input', 'required'=>'required')) }}
-                    </div>
-                </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        {{ Form::label('time', 'Hora de Inicio') }}
-                        {{ Form::time('time', Input::old('time'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                        {{ Form::label('price', 'Precio (en MXN)') }}
+                        {{ Form::text('price', Input::old('price'), array('class' => 'form-control border-input', 'required'=>'required')) }}
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
-                        {{ Form::label('time_end', 'Hora de Fin') }}
-                        {{ Form::time('time_end', Input::old('time_end'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                        {{ Form::label('duration', 'Duración (en horas)') }}
+                        {{ Form::text('duration', Input::old('duration'), array('class' => 'form-control border-input', 'required'=>'required')) }}
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-2">
                     <div class="form-group">
-                        {{ Form::label('address', 'Dirección') }}
-                        {{ Form::text('address', Input::old('address'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                        {{ Form::label('topics', 'Temas') }}
+                        {{ Form::text('topics', Input::old('topics'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ Form::label('requirements', 'Requerimientos previos') }}
+                        {{ Form::text('requirements', Input::old('requirements'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ Form::label('category', 'Categoría') }}
+                        {{ Form::select('category', $categories, Input::old('category'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                {{ Form::submit('Guardar cita', array('class' => 'btn btn-primary')) }}
-                <a class="btn btn-small btn-secondary" href="{{ URL::to('appointments/') }}">Cancelar</a>
+                {{ Form::submit('Guardar curso', array('class' => 'btn btn-primary')) }}
+                <a class="btn btn-small btn-secondary" href="{{ URL::to('user_courses/') }}">Cancelar</a>
             </div>
-            {{ Form::close() }}
         </div>
     </div>
+    {{ Form::close() }}
 @stop

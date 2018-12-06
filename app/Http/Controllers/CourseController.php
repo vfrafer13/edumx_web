@@ -5,14 +5,38 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Course;
+use App\Category;
 use View;
 use Input;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class CourseController
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index_web()
+    {
+        $courses = Course::all();
+
+        return View::make('courses.index')
+            ->with('courses', $courses);
+    }
+
     public function index()
     {
         return Course::all();
+    }
+
+    public function show_web($id)
+    {
+        $course = Course::find($id);
+
+        return View::make('courses.show')
+            ->with('course', $course);
     }
 
     public function show(Course $course)
@@ -20,11 +44,35 @@ class CourseController
         return $course;
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $categories = Category::all()->pluck('name', 'id');
+        return View::make('courses.create', compact('id', 'categories'));
+    }
+
     public function store(Request $request)
     {
-        $course = Course::create($request->all());
+        $course = new Course;
+        $user_id = Auth::id();
+        $course->name           = Input::get('name');
+        $course->description    = Input::get('description');
+        $course->price          = 34.55;
+        $course->category       = Input::get('category');
+        $course->instructor     = $user_id;
+        $course->duration       = Input::get('duration');
+        $course->requirements   = Input::get('requirements');
+        $course->rating         = 0;
+        $course->topics         = Input::get('topics');
+        $course->save();
 
-        return response()->json($course, 201);
+        $course->users()->attach($user_id);
+
+        return Redirect::to('user_courses');
     }
 
     public function update(Request $request, Course $course)
