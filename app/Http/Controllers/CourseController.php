@@ -18,30 +18,19 @@ class CourseController
      *
      * @return Response
      */
-    public function index_web()
-    {
-        $courses = Course::all();
-
-        return View::make('courses.index')
-            ->with('courses', $courses);
-    }
 
     public function index()
     {
-        return Course::all();
-    }
+        $courses = Course::all();
 
-    public function show_web($id)
-    {
-        $course = Course::find($id);
-
-        return View::make('courses.show')
-            ->with('course', $course);
+        return view('courses.index')
+            ->with('courses', $courses);
     }
 
     public function show(Course $course)
     {
-        return $course;
+        return view('courses.show')
+            ->with('course', $course);
     }
 
     /**
@@ -52,22 +41,23 @@ class CourseController
     public function create()
     {
         $categories = Category::all()->pluck('name', 'id');
-        return View::make('courses.create', compact('id', 'categories'));
+        return view('courses.create', compact('id', 'categories'));
     }
 
     public function store(Request $request)
     {
-        $course = new Course;
         $user_id = Auth::id();
-        $course->name           = Input::get('name');
-        $course->description    = Input::get('description');
-        $course->price          = 34.55;
-        $course->category       = Input::get('category');
+
+        $course = new Course;
+        $course->name           = $request->input('name');
+        $course->description    = $request->input('description');
+        $course->price          = $request->input('price', 0);
+        $course->category       = $request->input('category');
         $course->instructor     = $user_id;
-        $course->duration       = Input::get('duration');
-        $course->requirements   = Input::get('requirements');
-        $course->rating         = 0;
-        $course->topics         = Input::get('topics');
+        $course->duration       = $request->input('duration');
+        $course->requirements   = $request->input('requirements');
+        $course->rating         = $request->input('rating', 0);
+        $course->topics         = $request->input('topics');
         $course->save();
 
         $course->users()->attach($user_id);
@@ -75,17 +65,23 @@ class CourseController
         return Redirect::to('user_courses');
     }
 
+    public function edit(Course $course)
+    {
+        $categories = Category::all()->pluck('name', 'id');
+        return view('courses.edit', compact('course', 'categories'));
+    }
+
     public function update(Request $request, Course $course)
     {
         $course->update($request->all());
 
-        return response()->json($course, 200);
+        return redirect()->route('courses.show', ['course' => $course->id]);
     }
 
-    public function delete(Course $course)
+    public function destroy(Course $course)
     {
         $course->delete();
 
-        return response()->json(null, 204);
+        return redirect('user_courses');
     }
 }

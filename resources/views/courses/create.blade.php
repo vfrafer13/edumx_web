@@ -61,7 +61,8 @@
                 {{ Form::submit('Guardar curso', array('class' => 'btn btn-primary')) }}
                 <a class="btn btn-small btn-secondary" href="{{ URL::to('user_courses/') }}">Cancelar</a>
             </div>
+            {{ Form::close() }}
         </div>
     </div>
-    {{ Form::close() }}
+
 @stop

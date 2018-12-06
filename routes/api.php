@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('courses', 'API\CourseController');
+/*
 Route::get('courses', function() {
     // If the Content-Type and Accept headers are set to 'application/json',
     // this will return a JSON structure. This will be cleaned up later.
@@ -50,3 +52,4 @@ Route::get('courses/{course}', 'CourseController@show');
 Route::post('courses', 'CourseController@store');
 Route::put('courses/{course}', 'CourseController@update');
 Route::delete('courses/{course}', 'CourseController@delete');
+*/

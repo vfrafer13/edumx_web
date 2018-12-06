@@ -20,6 +20,6 @@ Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index');
 
 Route::get('categories/{id}', 'CategoryController@index');
-Route::get('courses/', 'CourseController@index_web');
-Route::get('courses/{id}', 'CourseController@show_web');
+// Route::get('courses/', 'CourseController@index_web');
+// Route::get('courses/{id}', 'CourseController@show_web');
 Route::get('user_courses/', 'UserCourseController@index_web');
