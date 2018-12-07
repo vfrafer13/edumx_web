@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Course;
-use App\User;
 use View;
 use Input;
 use Illuminate\Support\Facades\Auth;
 
-class UserCourseController
+class UserCourseController extends Controller
 {
     /**
      * Display a listing of the resource.

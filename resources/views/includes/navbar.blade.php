@@ -27,7 +27,7 @@
             </a>
         </li>
         <li
-            @if (Request::route()->named('users.courses'))
+            @if (Request::route()->named('users.courses') || Request::route()->named('users.courses.show'))
                 class="active"
             @endif
         >

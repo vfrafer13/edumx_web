@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Course;
-use App\Category;
 use View;
 use Input;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
-class CourseController
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,6 +19,12 @@ class CourseController
     public function index()
     {
         return response()->json(Course::all());
+    }
+
+    public function category($category_id)
+    {
+        $courses = Course::where('category', $category_id)->get();
+        return response()->json($courses);
     }
 
 
@@ -36,10 +40,21 @@ class CourseController
         return response()->json($course, 200);
     }
 
-    public function delete(Course $course)
+    public function destroy(Course $course)
     {
         $course->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function buy(Course $course)
+    {
+        $user_id = Auth::id();
+
+        if (!$course->users()->find($user_id)) {
+            $course->users()->attach($user_id);
+        }
+
+        return response()->json(null, 200);
     }
 }

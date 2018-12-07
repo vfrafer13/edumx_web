@@ -13,11 +13,18 @@
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('/');
+Route::get('/home', 'HomeController@index');
+
 Route::resource('courses', 'CourseController');
 Route::resource('users', 'UserController');
 
 Route::get('my/courses', 'UserController@courses')
     ->name('users.courses')
+    ->middleware('auth');
+
+Route::get('my/courses/{course}', 'CourseController@show')
+    ->name('users.courses.show')
     ->middleware('auth');
 
 
@@ -26,10 +33,4 @@ Route::post('courses/{course}/buy', 'CourseController@buy')
     ->middleware('auth');
 
 
-Route::get('/', 'HomeController@index')->name('/');
-Route::get('/home', 'HomeController@index');
-
 Route::get('categories/{id}', 'CategoryController@index');
-// Route::get('courses/', 'CourseController@index_web');
-// Route::get('courses/{id}', 'CourseController@show_web');
-// Route::get('user_courses/', 'UserCourseController@index_web');

@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Course;
-use App\Http\Requests;
 use View;
-use Input;
 
-class CategoryController
+class CategoryController extends Controller
 {
     public function index(int $id)
     {

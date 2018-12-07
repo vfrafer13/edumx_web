@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Course;
 use App\Category;
 use View;
 use Input;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
-class CourseController
+
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,8 +28,8 @@ class CourseController
 
     public function show(Course $course)
     {
-        $user_id = Auth::id();
-        $canBuy = !$course->users()->find($user_id);
+        $user = Auth::user();
+        $canBuy = $user->role == 0 && !$course->users()->find($user->id);
 
         return view('courses.show')
             ->with('course', $course)
@@ -79,7 +78,7 @@ class CourseController
     {
         $course->update($request->all());
 
-        return redirect()->route('courses.show', ['course' => $course->id]);
+        return redirect()->route('users.courses.show', ['course' => $course->id]);
     }
 
     public function destroy(Course $course)
