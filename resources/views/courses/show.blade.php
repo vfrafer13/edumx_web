@@ -59,10 +59,16 @@
                 </tbody>
             </table>
             <div class="text-center">
-                <a class="btn btn-small btn-info" href="{{ route('courses.edit', ['course' => $course->id]) }}">Editar</a>
-                {{Form::open(['style' => 'display: inline-block', 'method'  => 'DELETE', 'route' => ['courses.destroy', $course->id]])}}
-                    <button class="btn btn-small btn-danger">Eliminar</button>
-                {{Form::close()}}
+                @if(Auth::id() == $course->instructor)
+                    <a class="btn btn-small btn-info" href="{{ route('courses.edit', ['course' => $course->id]) }}">Editar</a>
+                    {{Form::open(['style' => 'display: inline-block', 'method'  => 'DELETE', 'route' => ['courses.destroy', $course->id]])}}
+                        <button class="btn btn-small btn-danger">Eliminar</button>
+                    {{Form::close()}}
+                @elseif($canBuy)
+                    {{Form::open(['style' => 'display: inline-block', 'method'  => 'POST', 'route' => ['courses.buy', $course->id]])}}
+                        <button class="btn btn-small btn-danger">Comprar</button>
+                    {{Form::close()}}
+                @endif
                 <a class="btn btn-small btn-secondary" href="{{ url()->previous() }}">Regresar</a>
             </div>
         </div>

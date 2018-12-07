@@ -37,7 +37,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         {{ Form::label('price', 'Precio (en MXN)') }}
-                        {{ Form::number('price', null, array('class' => 'form-control border-input', 'required'=>'required')) }}
+                        {{ Form::number('price', null, array('class' => 'form-control border-input', 'required'=>'required', 'step' => 'any')) }}
                     </div>
                 </div>
                 <div class="col-md-2">

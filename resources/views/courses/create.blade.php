@@ -28,13 +28,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         {{ Form::label('price', 'Precio (en MXN)') }}
-                        {{ Form::text('price', Input::old('price'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                        {{ Form::number('price', Input::old('price'), array('class' => 'form-control border-input', 'required'=>'required', 'step' => 'any')) }}
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         {{ Form::label('duration', 'Duración (en horas)') }}
-                        {{ Form::text('duration', Input::old('duration'), array('class' => 'form-control border-input', 'required'=>'required')) }}
+                        {{ Form::number('duration', Input::old('duration'), array('class' => 'form-control border-input', 'required'=>'required')) }}
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -59,7 +59,7 @@
             </div>
             <div class="text-center">
                 {{ Form::submit('Guardar curso', array('class' => 'btn btn-primary')) }}
-                <a class="btn btn-small btn-secondary" href="{{ URL::to('user_courses/') }}">Cancelar</a>
+                <a class="btn btn-small btn-secondary" href="{{ route('users.courses') }}">Cancelar</a>
             </div>
             {{ Form::close() }}
         </div>

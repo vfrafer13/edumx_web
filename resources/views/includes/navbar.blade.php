@@ -27,11 +27,11 @@
             </a>
         </li>
         <li
-            @if (Request::is('user_courses') || Request::is('user_courses'))
+            @if (Request::route()->named('users.courses'))
                 class="active"
             @endif
         >
-            <a href="{{ url('user_courses') }}">
+            <a href="{{ route('users.courses') }}">
                 <i class="ti-alarm-clock"></i>
                 <p>Mis Cursos</p>
             </a>

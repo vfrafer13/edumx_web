@@ -29,8 +29,12 @@ class CourseController
 
     public function show(Course $course)
     {
+        $user_id = Auth::id();
+        $canBuy = !$course->users()->find($user_id);
+
         return view('courses.show')
-            ->with('course', $course);
+            ->with('course', $course)
+            ->with('canBuy', $canBuy);
     }
 
     /**
@@ -62,7 +66,7 @@ class CourseController
 
         $course->users()->attach($user_id);
 
-        return Redirect::to('user_courses');
+        return redirect()->route('users.courses');
     }
 
     public function edit(Course $course)
@@ -82,6 +86,17 @@ class CourseController
     {
         $course->delete();
 
-        return redirect('user_courses');
+        return redirect()->route('users.courses');
+    }
+
+    public function buy(Course $course)
+    {
+        $user_id = Auth::id();
+
+        if (!$course->users()->find($user_id)) {
+            $course->users()->attach($user_id);
+        }
+
+        return redirect()->route('users.courses');
     }
 }

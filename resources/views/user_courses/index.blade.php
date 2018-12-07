@@ -3,7 +3,9 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Mis cursos</a>
-            <a class="btn btn-small btn-info" href="{{ URL::to('courses/create') }}"><i class="ti-plus"></i></a>
+            @if(Auth::user()->role == 0)
+                <a class="btn btn-small btn-info" href="{{ URL::to('courses/create') }}"><i class="ti-plus"></i></a>
+            @endif
         </div>
     </div>
 @stop
