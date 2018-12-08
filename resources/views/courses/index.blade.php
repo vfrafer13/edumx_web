@@ -16,7 +16,13 @@
                     @foreach($items as $item)
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <div class="box-part text-center">
-                                <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+                                @if($item->cover_path)
+                                    <img src="{{Storage::url($item->cover_path)}}" class="img-responsive" style="max-height: 150px; margin: auto">
+                                @else
+                                    <div style="height: 150px; margin: auto; line-height: 150px">
+                                        <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+                                    </div>
+                                @endif
                                 <div class="title">
                                     <h4>{{$item->name}}</h4>
                                 </div>

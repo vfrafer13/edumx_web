@@ -55,9 +55,21 @@
                         <td>{{date('d/m/Y', strtotime($course->created_at))}}</td>
                     </tr>
 
-
                 </tbody>
             </table>
+
+            @if(Auth::user()->courses()->find($course->id))
+                <div class="form-group">
+                    <h5>Material</h5>
+                    @foreach($course->files as $file)
+                        <div style="padding: 10px">
+                            <a href="{{Storage::url($file->path)}}">{{$file->name}}</a>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+
             <div class="text-center">
                 @if(Auth::id() == $course->instructor)
                     <a class="btn btn-small btn-info" href="{{ route('courses.edit', ['course' => $course->id]) }}">Editar</a>
@@ -69,7 +81,10 @@
                         <button class="btn btn-small btn-danger">Comprar</button>
                     {{Form::close()}}
                 @endif
-                <a class="btn btn-small btn-secondary" href="{{ url()->previous() }}">Regresar</a>
+                <a class="btn btn-small btn-secondary" href="{{
+                    request()->route()->named('users.courses.show') ?
+                    route('users.courses') : route('courses.index')
+                }}">Regresar</a>
             </div>
         </div>
     </div>

@@ -33,4 +33,8 @@ class Course extends Model
     {
         return $this->belongsTo('App\Category', 'category');
     }
+
+    public function files() {
+        return $this->hasMany('App\CourseFile');
+    }
 }

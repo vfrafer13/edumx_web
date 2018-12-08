@@ -42,9 +42,10 @@ class CourseController extends Controller
 
     public function destroy(Course $course)
     {
+        $course->users()->detach();
         $course->delete();
 
-        return response()->json(null, 204);
+        return response()->json(["success" => "Course deleted"]);
     }
 
     public function buy(Course $course)

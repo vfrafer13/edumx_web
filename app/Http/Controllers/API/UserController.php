@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('auth', ['except' => 'login']);
+    }
+
     /**
      * login api
      *

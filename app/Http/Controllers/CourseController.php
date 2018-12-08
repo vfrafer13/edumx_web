@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Course;
+use App\CourseFile;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 use View;
 use Input;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
+    private $courseImageKey = 'course-image';
+    private $courseFileKey = 'course-file';
+
     /**
      * Display a listing of the resource.
      *
@@ -76,7 +81,35 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
+
         $course->update($request->all());
+
+
+        // Files
+
+        if ($request->hasFile($this->courseImageKey)) {
+
+            $image = $request->file($this->courseImageKey);
+
+            $path = $image->storePublicly('public/course/'. $course->id . '/cover');
+
+            $course->cover_path = $path;
+            $course->save();
+
+        }
+
+        if ($request->hasFile($this->courseFileKey)) {
+
+            $files = $request->file($this->courseFileKey);
+
+            foreach ($files as $file) {
+                $path = $file->storePublicly('public/course/' . $course->id . '/files');
+                $name = $file->getClientOriginalName();
+                $course->files()->save(new CourseFile(compact('path', 'name')));
+            }
+
+        }
+
 
         return redirect()->route('users.courses.show', ['course' => $course->id]);
     }

@@ -16,21 +16,23 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index');
 
-Route::resource('courses', 'CourseController');
-Route::resource('users', 'UserController');
 
-Route::get('my/courses', 'UserController@courses')
-    ->name('users.courses')
-    ->middleware('auth');
+Route::middleware('auth')->group( function () {
 
-Route::get('my/courses/{course}', 'CourseController@show')
-    ->name('users.courses.show')
-    ->middleware('auth');
+    Route::resource('/courses', 'CourseController');
 
+    Route::get('/my/courses', 'UserController@courses')
+        ->name('users.courses');
 
-Route::post('courses/{course}/buy', 'CourseController@buy')
-    ->name('courses.buy')
-    ->middleware('auth');
+    Route::get('/my/courses/{course}', 'CourseController@show')
+        ->name('users.courses.show');
 
 
-Route::get('categories/{id}', 'CategoryController@index');
+    Route::post('/courses/{course}/buy', 'CourseController@buy')
+        ->name('courses.buy');
+
+    Route::get('/categories/{id}', 'CategoryController@index')
+        ->name('categories.show');
+
+
+});

@@ -10,6 +10,8 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
 <!-- Bootstrap core CSS     -->
 <link href="{{ asset("css/bootstrap.min.css")}}" rel="stylesheet" />
 
@@ -27,6 +29,9 @@
 
 
 <!--  Fonts and icons     -->
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<!--link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"-->
+
 <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
 <link href="{{ asset("css/themify-icons.css")}}" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
