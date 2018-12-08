@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::resource('courses', 'API\CourseController');
 Route::get('category/{category}', 'API\CourseController@category');
 
+Route::resource('categories', 'API\CategoryController');
+
 Route::post('login', 'API\UserController@login');
 
 
